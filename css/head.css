@@ -1,0 +1,101 @@
+.head{
+	height: 151px;
+	background-color: rgba(51, 51, 51, 0.996078431372549);
+}
+.head_img{
+	border-width: 0px;
+    width: 142px;
+    height: 142px;
+}
+.head_one{
+	margin-left: 15%;
+}
+.head_nei{
+	display: flex;
+}
+.head_btn_div{
+	margin-top: 20px;
+}
+.head_btn_div button{
+	border-width: 0px;
+    width: 200px;
+	color: white;
+    font-size: 20px;
+	height: 60px;
+    text-align: center;
+    border-radius: 20px;
+    border: 5px solid #D7D7D7;
+    background: rgba(51, 51, 51, 0.996078431372549);
+    margin-left: 20px;
+	cursor:pointer;
+}
+
+
+
+@media screen and (max-width: 1024px) {
+	.head_nei{
+		display: block;
+	}
+	.head_one{
+		margin-left: 0;
+		text-align: center;
+
+	}
+	.head_two{
+		margin-left: 0;
+		text-align: center;
+	}
+	.head_img{
+		width: 15%;
+		height: 15%;
+	}
+	
+	.head{
+		height: 50%;
+	}
+	.head_btn_div button {
+	    border-width: 0px;
+	    max-width: 100%;
+	    color: white;
+	    font-size: 50%;
+	    height: 30px;
+	    text-align: center;
+	    border-radius: 10px;
+	    border: 2px solid #D7D7D7;
+	    background: rgba(51, 51, 51, 0.996078431372549);
+	    margin-left: 0px;
+	}
+	.head_btn_div {
+	    margin-top: 20px;
+	}
+	.p1{
+		width:100%;
+	}
+	.big_two_div{
+		height: 100%;
+	}
+
+}
+
+@media screen and (min-width: 100px) and (max-width: 200px) {
+	h1 {
+	    font-size: 20px;
+	}
+}
+
+@media screen and (min-width: 200px) and (max-width: 624px) {
+	h1 {
+	    font-size: 30px;
+	}
+}
+@media screen and (min-width: 624px) and (max-width: 1024px) {
+	h1 {
+	    font-size: 40px;
+	}
+}
+
+@media screen and (min-width: 1024px) {
+	h1 {
+	    font-size: 45px;
+	}
+}

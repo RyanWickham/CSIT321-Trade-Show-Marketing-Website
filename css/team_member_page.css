@@ -1,0 +1,195 @@
+*{
+	padding: 0px;
+	margin: 0px;
+}
+
+#big_div{
+	 background-color:rgba(33, 129, 155, 1);
+	padding-top: 2%;
+}
+.big_two_div {
+    width: 70%;
+    margin-left: 15%;
+    height: 1908px;
+
+
+   
+}
+a{
+    text-decoration:none;
+}
+
+h1{
+	font-size: 40px;
+}
+.each_hang{
+	display: flex;
+}
+.each_hang_f{
+	width: 30%;
+	border: 5px solid black;
+	height: 550px;
+	border-radius: 20px;
+	line-height: 40px;
+	text-align: center;
+	background: #333333;
+	margin-left: 2%;
+	margin-top: 2%;
+}
+.each_hang_f{
+	
+}
+.name_span{
+	font-size: 35px;
+	color: white;
+	font-weight: 500;
+}
+.title_span{
+	font-weight: 700;
+    font-style: normal;
+    font-size: 20px;
+    color: #50E0B3;
+}
+.title_span_small{
+	font-weight: 700;
+    font-style: normal;
+    font-size: 18px;
+    color: #50E0B3;
+}
+.img1{
+	margin-left: 15%;
+}
+.img2{
+	margin-left: 15%;
+}
+.zdnx{
+	height: 219px;
+}
+@media only screen and (max-width: 200px) {
+	.zdnx{
+		height: 129px;
+	}
+	.each_hang_f div:first-child img{
+		width: 100%;
+	}
+	.big_two_div {
+	    width: 100%;
+	    margin-left: 0;
+	    height: 1208px;
+	    border: 0px solid black;
+	}
+	.name_span{
+		font-size: 15px;
+	}
+	h1 {
+	    font-size: 15px;
+	}
+	.title_span{
+		font-size: 12px;
+	}
+	.email_img_div img{
+		width: 20%;
+	}
+	.title_span_small{
+		font-size: 10px;
+	}
+	.each_hang_f {
+	    width: 52px;
+	    border: 5px solid black;
+	    height: 400px;
+	    border-radius: 20px;
+	    line-height: 15px;
+	    text-align: center;
+	    background: #333333;
+margin-left: 1%;
+	    margin-top: 2%;
+	}
+	.big_two_div_teams {
+	    width: 100%;
+	    margin-left: 0;
+	    height: 100%;
+	    border: 0px solid black;
+	}
+}
+
+@media only screen and (max-width: 640px) {
+	.zdnx{
+		height: 129px;
+	}
+	.each_hang_f div:first-child img{
+		width: 100%;
+	}
+	.name_span{
+		font-size: 15px;
+	}
+	h1 {
+	    font-size: 15px;
+	}
+	.title_span{
+		font-size: 12px;
+	}
+	.email_img_div img{
+		width: 20%;
+	}
+	.title_span_small{
+		font-size: 10px;
+	}
+	.each_hang_f {
+	    width: 35%;
+	    border: 5px solid black;
+	    height: 1200px;
+	    border-radius: 20px;
+	    line-height: 15px;
+	    text-align: justify;
+	    background: #333333;
+margin-left: 1%;
+	    margin-top: 2%;
+	}
+	.big_two_div_teams {
+	    width: 100%;
+	    margin-left: 0;
+	    height: 100%;
+	    border: 0px solid black;
+	}
+}
+
+@media only screen and (max-width: 1024px) {
+	.zdnx{
+		height: 129px;
+	}
+	.each_hang_f div:first-child img{
+		width: 100%;
+	}
+	.name_span{
+		font-size: 15px;
+	}
+	h1 {
+	    font-size: 15px;
+	}
+	.title_span{
+		font-size: 12px;
+	}
+	.email_img_div img{
+		width: 20%;
+	}
+	.title_span_small{
+		font-size: 10px;
+	}
+	.each_hang_f {
+	    width: 30%;
+	    border: 5px solid black;
+	    height: 100%;
+	    border-radius: 20px;
+	    line-height: 15px;
+	    text-align: center;
+	    background: #333333;
+margin-left: 1%;
+	    margin-top: 2%;
+	}
+	.big_two_div_teams {
+	    width: 100%;
+	    margin-left: 0;
+	    height: 100%;
+	    border: 0px solid black;
+	}
+}
