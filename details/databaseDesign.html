@@ -53,7 +53,243 @@
 
     <!-- Main Content -->
     <div class="container">
-      <p>asda</p>
+      <h1>Database Design</h1>
+      <p>
+        For our internal NoSQL database, we have four tables to store the site
+        data. The schema and description of each of the fields within these
+        tables are shown below:
+      </p>
+
+      <h2>Article Table</h2>
+      <table>
+        <tr>
+          <th>Column Name</th>
+          <th>Description</th>
+          <th>Data Format</th>
+          <th>Key Type</th>
+          <th>Example</th>
+        </tr>
+        <tr>
+          <td>ID</td>
+          <td>Randomly generated UUID for purposes of unique identification</td>
+          <td>String</td>
+          <td>Partition Key</td>
+          <td>
+            c757406a6bfbab7512f59bedd38f49438ba754ce3ac18eee87442104fea70a85
+          </td>
+        </tr>
+        <tr>
+          <td>CreationDate</td>
+          <td>
+            Creation time of the record for sorting and retrieval. DynamoDB
+            requires both a partition key and sorting key to sort
+          </td>
+          <td>Integer</td>
+          <td>Sort Key</td>
+          <td>1492021</td>
+        </tr>
+        <tr>
+          <td>Body</td>
+          <td>Body text of an article in HTML format</td>
+          <td>String</td>
+          <td>-</td>
+          <td>
+            &lt;p&gt; ITSA is happy to start our new coffee loyalty program. No
+            need to search for your coffee card, or hand the wrong coffee card
+            over again. Carry your coffee card with you on your smart phone.
+            Download the eCoffeeCard app and register. When you purchase your
+            next coffee, open your app and scan the QR code that our staff will
+            show you. This program is starting at our Wollongong Campus and will
+            roll out to our other campuses over the next couple of month.
+            &lt;/p&gt;
+          </td>
+        </tr>
+        <tr>
+          <td>IsPublic</td>
+          <td>
+            Is the article shown publicly on the site homepage, or can it only
+            be accessed via link?
+          </td>
+          <td>Boolean</td>
+          <td>-</td>
+          <td>true</td>
+        </tr>
+        <tr>
+          <td>Summary</td>
+          <td>A summary string of an article displayed on the homepage</td>
+          <td>String</td>
+          <td>-</td>
+          <td>
+            ITSA is happy to start our new coffee loyalty program. No need to
+            search for your coffee card, or hand the wrong coffee card over
+            again. Carry your coffee card with you on your smart phone. Download
+            t
+          </td>
+        </tr>
+        <tr>
+          <td>Thumbnail</td>
+          <td>S3 key of the article thumbnail</td>
+          <td>String</td>
+          <td>-</td>
+          <td>
+            c8b0fdbb9e01977cf67d1c6faefda266e862102d5957f665d410a89d33b38c43
+          </td>
+        </tr>
+        <tr>
+          <td>Title</td>
+          <td>Title of the article</td>
+          <td>String</td>
+          <td>-</td>
+          <td>Get your free eCoffeeCard</td>
+        </tr>
+      </table>
+
+      <h2>Orders & Previous Orders Table</h2>
+      <table>
+        <tr>
+          <th>Column Name</th>
+          <th>Description</th>
+          <th>Data Format</th>
+          <th>Key Type</th>
+          <th>Example</th>
+        </tr>
+        <tr>
+          <td>ID</td>
+          <td>Transaction ID of the order from payment provider - unique ID</td>
+          <td>String</td>
+          <td>Partition Key</td>
+          <td>ch_3JjcNnA5mt16DDbX0xegDHm7</td>
+        </tr>
+        <tr>
+          <td>CreationDate</td>
+          <td>Creation time of the record for sorting</td>
+          <td>Integer</td>
+          <td>Sort Key</td>
+          <td>1634012071253</td>
+        </tr>
+        <tr>
+          <td>Comment</td>
+          <td>An Optional comment included with the order</td>
+          <td>String</td>
+          <td>-</td>
+          <td>Please staple pages in top right corner.</td>
+        </tr>
+        <tr>
+          <td>Contact</td>
+          <td>
+            Serialised JSON containing a required email and optional phone
+            number with the following format:
+          </td>
+          <td>String</td>
+          <td>-</td>
+          <td>
+            {"Email":"ryanwickham259@gmail.com","PhoneNumber":"0490442101"}
+          </td>
+        </tr>
+        <tr>
+          <td>DeliveryMethod</td>
+          <td>The delivery method of the order</td>
+          <td>String</td>
+          <td>-</td>
+          <td>Pickup from Wollongong</td>
+        </tr>
+        <tr>
+          <td>DocumentCount</td>
+          <td>Number of documents in the order</td>
+          <td>String</td>
+          <td>-</td>
+          <td>1</td>
+        </tr>
+        <tr>
+          <td>Documents</td>
+          <td>
+            Serialised JSON array containing all documents with the following
+            format:
+          </td>
+          <td>String</td>
+          <td>-</td>
+          <td>
+            [{ "DocumentKey":"2ea678e31e0fd5c4c1e89269b….", "FileName":"Resource
+            Centre Flyer.pdf", "ContentType":"application/pdf", "Size":"A4",
+            "Price":20, "AmountOfCopies":1, "IsDoubleSided":true,
+            "ItemDetails":{ "Printing Colour":"Black and White",
+            Lamination":"No", "Binding":"None", "Staples":"No" } }]
+          </td>
+        </tr>
+        <tr>
+          <td>TotalPrice</td>
+          <td>The total price of the order in cents</td>
+          <td>String</td>
+          <td>-</td>
+          <td>50</td>
+        </tr>
+
+        <tr>
+          <td>Name</td>
+          <td>Name of the customer</td>
+          <td>String</td>
+          <td>-</td>
+          <td>Ryan Wickham</td>
+        </tr>
+
+        <tr>
+          <td>NameLowerCase</td>
+          <td>Name of the customer all in lowercase</td>
+          <td>string</td>
+          <td>-</td>
+          <td>ryan wickham</td>
+        </tr>
+
+        <tr>
+          <td>Sheet</td>
+          <td>HTML string of the order summary associated with this order</td>
+          <td>String</td>
+          <td>-</td>
+          <td>HTML string</td>
+        </tr>
+      </table>
+
+      <h2>Pricing Table</h2>
+      <table>
+        <tr>
+          <th>Column Name</th>
+          <th>Description</th>
+          <th>Data Format</th>
+          <th>Key Type</th>
+          <th>Example</th>
+        </tr>
+        <tr>
+          <td>PageSize</td>
+          <td>Page size the pricing items are associated with</td>
+          <td>String</td>
+          <td>Partition Key</td>
+          <td>A4</td>
+        </tr>
+        <tr>
+          <td>AllowDoubleSided</td>
+          <td>Whether the page size allows for double-sided printing</td>
+          <td>Boolean</td>
+          <td>-</td>
+          <td>true</td>
+        </tr>
+        <tr>
+          <td>Items</td>
+          <td>
+            Serialised JSON containing all the pricing items for the page size
+          </td>
+          <td>String</td>
+          <td>-</td>
+          <td>
+            [{ "ID":"A4-Printing-Colour", "Label":"Printing Colour",
+            "PaymentType":"Per Side", "Options":[ {"Text":"Black and White",
+            "PageAmountDependent":false, "Price":10}, {"Text":"Colour",
+            "PageAmountDependent":false, "Price":50}]}, {"ID":"A4-Lamination",
+            "Label":"Lamination", "PaymentType":"Per Page", "Options":[
+            {"Text":"No", "PageAmountDependent":false, "Price":0},
+            {"Text":"Yes", "PageAmountDependent":false, "Price":150}]}, ]
+          </td>
+        </tr>
+      </table>
     </div>
   </body>
   <style>
@@ -73,10 +309,31 @@
 
     .container h1 {
       margin-bottom: 1rem;
+      font-size: 3rem;
     }
 
     .container h2 {
       margin: 1rem 0 0.5rem 0;
+      font-size: 1.6rem;
+    }
+
+    .container p {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    table,
+    th,
+    td {
+      text-align: center;
+    }
+
+    table {
+      border: 1px solid black;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
     }
   </style>
 </html>
