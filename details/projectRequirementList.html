@@ -54,14 +54,111 @@
     <div class="container">
       <h1>Project Requirement List</h1>
 
-      <h2>Base Requirements</h2>
-      <p>asdasdasd</p>
+      <h2>Functional Requirements</h2>
+      <ol>
+        <li>
+          The customer should be able to upload the documents they want to be
+          printed.
+        </li>
+        <li>
+          The customer should be able to pick additional extra tasks on their
+          documents (hole punch, binding, staple, etc.).
+        </li>
+        <li>
+          The customer should be able to see a quote of how much their printing
+          order will cost before confirming.
+        </li>
+        <li>Customers should be able to pay for their printing.</li>
+        <li>
+          The system should be able to notify the printing staff with an
+          automated email when a printing order has been placed.
+        </li>
+        <li>
+          The print shop worker should be able to send emails to a customer to
+          inquire about their printing order.
+        </li>
+        <li>
+          The print shop worker should be able to update the prices of various
+          printing options (hole punch, binding, etc.)
+        </li>
+        <li>
+          The customers should be able to fill out a text box to add a comment
+          to their order to let the print shop worker know of any requests.
+        </li>
+        <li>The print shop worker should be able to view current orders.</li>
+        <li>
+          The print shop worker should be able to search for orders from a
+          customer by name.
+        </li>
+        <li>
+          The print shop worker should be able to update what the current status
+          is on a specific order.
+        </li>
+        <li>Printshop workers should be able to cancel an order.</li>
+        <li>Printshop workers should be able to upload a pricing sheet.</li>
+        <li>The customers should be able to view a pricing sheet.</li>
+        <li>
+          The print shop workers should be able to create and edit articles.
+        </li>
+        <li>The print shop worker should be able to remove an article.</li>
+        <li>
+          The customers should be able to view article previews on the home
+          page.
+        </li>
+        <li>The customers should be able to view an article.</li>
+      </ol>
 
-      <h2>Nice to have Requirements</h2>
-      <p>asdasdasd</p>
+      <h2>Non-Functional Requirements</h2>
+      <ol>
+        <li>The system should be supported on different browsers.</li>
+        <li>The system should be supported on mobile.</li>
+        <li>The systems transactions should be encrypted with SSL</li>
+        <li>
+          The system should provide refunds to customers upon order
+          cancellation.
+        </li>
+        <li>
+          The system should be able to store pricing information on DynamoDB.
+        </li>
+        <li>The system should be able to store orders on DynamoDB.</li>
 
-      <h2>Stretch Goals</h2>
-      <p>asdasdasd</p>
+        <li>
+          The system should be able to calculate the cost of printing based on:
+          number of pages, the colour of paper, additional extras (hole punch,
+          binding, etc.) reliably in under 2 seconds.
+        </li>
+
+        <li>The system should be able to store articles on DynamoDB.</li>
+
+        <li>
+          Improve/migrate ITSA site to the system we use for hosting backend.
+        </li>
+      </ol>
+
+      <h2>Final System vs Initial Requirements</h2>
+      <p>
+        The final version of the ITSA Print shop met almost all of the
+        requirements set out at the beginning of the project. Certain
+        requirements were changed, removed or expanded upon as detailed in the
+        section above. Most functionalities remained the same for the print shop
+        other than customer accounts being removed. Other additions to the
+        system came from the need for quality of life improvements both for
+        customers and print shop workers, such as automated email for both the
+        admins and customers.
+      </p>
+
+      <p>
+        The decision was also made to redesign the main ITSA website, which
+        added multiple new requirements, such as the addition of articles. When
+        compared against the original 21 requirements submitted, the system has
+        met 14 of the initial requirements. 3 out of 6 of the nice to have
+        requirements were implemented, and 1 out of 1 stretch goal was
+        implemented. The requirements not present are mostly related to customer
+        account functionality. The final list of requirements reflect a better
+        state of the system as many additions as well as a few removals,
+        bringing the final total requirements up to 28 between the functional
+        and non-functional requirements
+      </p>
     </div>
   </body>
   <style>
@@ -81,10 +178,30 @@
 
     .container h1 {
       margin-bottom: 1rem;
+      font-size: 3rem;
     }
 
     .container h2 {
       margin: 1rem 0 0.5rem 0;
+      font-size: 1.6rem;
+    }
+
+    .container p {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .container ol {
+      font-size: 1.2rem;
+      list-style-position: outside;
+      column-count: 2;
+      column-gap: 2rem;
+      margin: 0 0rem 0 2rem;
+      /* padding: 0 0rem 0 1rem; */
+    }
+
+    .container ol li {
+      margin-bottom: 0.5rem;
     }
   </style>
 </html>
