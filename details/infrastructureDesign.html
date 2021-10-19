@@ -53,7 +53,134 @@
 
     <!-- Main Content -->
     <div class="container">
-      <p>asda</p>
+      <h1>Architecture Design</h1>
+
+      <h2>Backend Information Architecture</h2>
+      <p>
+        The backend of the project was created using multiple services offered
+        by Amazon Web Services (AWS), the cloud division of Amazon, and a
+        software package called Serverless. Serverless was used to orchestrate
+        these services and quickly deploy code without having to provide each
+        service manually. Below is a diagram displaying the services used, how
+        they link up, and a description of each service used.
+      </p>
+
+      **********IMG***************
+
+      <h3>Cognito</h3>
+      <p>
+        Cognito is a user-authentication service offered by Amazon that
+        abstracts away and takes care of registering, logging into, and managing
+        user accounts. Cognito is needed for our system to protect the admin
+        side of the system from general users.
+      </p>
+
+      <h3>API Gateway</h3>
+      <p>
+        API Gateway is a service that allows developers to create REST APIs to
+        be used within their systems. In our case, we used API Gateway to create
+        endpoints, such as getting printing service prices, for general system
+        users to access. Private endpoints were also created in combination with
+        Cognito that only the ITSA administration can access the admin site.
+      </p>
+
+      <h3>Lambda</h3>
+      <p>
+        Lambda is a service that allows pieces of code to be deployed and run
+        without worrying about hosting the code. Code can be arbitrarily
+        executed in a temporary environment without worrying about provisioning
+        servers actually to run the code. Each API Gateway endpoint is connected
+        to a snippet of code hosted in Lambda, interacting with other services
+        to perform their respective tasks.
+      </p>
+
+      <h3>DynamoDB</h3>
+      <p>
+        DynamoDB is the primary NoSQL database service that supports key-value
+        and document data structures that Amazon offers. It is a service that
+        allows data to be stored and retrieved quickly and cheaply, without
+        providing or managing servers for the database. DynamoDB is also much
+        cheaper than the relational database services offered by Amazon. The
+        information which is constantly accessed and needs to be accessed
+        quickly is stored within DynamoDB, including order and article details.
+        More long-term and less frequently accessed data, including article
+        thumbnails and printing documents, are stored within S3.
+      </p>
+
+      <h3>S3</h3>
+      <p>
+        S3 is Amazon's traditional file storage system offered by Amazon. It
+        allows larger blobs of data to be stored and still be accessed
+        relatively quickly, without needing servers to store the data similarly
+        to the other services we are using. It allows us to store larger files
+        as mentioned above, including documents to be printed to be retrieved
+        later. It also exposes a file access system where read/write permissions
+        can be configured not just for individual files but for groups of files
+        called buckets within S3. The static React website content is also
+        stored within S3 so it can be quickly and cheaply accessed.
+      </p>
+
+      <h3>Simple Email Service</h3>
+      <p>
+        Simple Email Service (SES) is an email-sending service offered by
+        Amazon. It allows emails to be sent from an authenticated address from
+        Amazon's servers. By default, SES is set up in a sandbox mode where all
+        sender and recipient emails must be verified to prevent abuse. However,
+        the sandbox mode can be removed to send emails to any destination.
+      </p>
+
+      <h2>Frontend Information Architecture</h2>
+      <p>
+        The primary basis of the frontend's architecture is based on the concept
+        of MVC, Model View Controller. The leading technologies used to create
+        the frontend's architecture were React.js, Redux, and Redux-Saga.
+      </p>
+
+      **********IMG***************
+
+      <p>
+        The first part of the system is the view. The view is created by react,
+        divided into two sections: react containers and react components. The
+        React components are just for viewing and displaying the different
+        subsections that appear on each page. The react container's job is only
+        half for the view; they are also called smart components. This reference
+        comes from the fact that the containers contain both visual aspects and
+        act as the gateway between the view, model and controller. Either
+        collecting data from the model or sending information from the user to
+        the controller.
+      </p>
+      <p>
+        Once input is collected from the user, it is then sent to the
+        controller. Within our system, the controller is redux. Redux within
+        this system, on a high-level act as both the controller and model;
+        however, only the redux store handles the model section of the system.
+        From the controller aspect, redux receives predefined actions from the
+        react container. These actions have both a type and a payload. The type
+        defines how redux should interact with the payload. The actions could be
+        one of a few different types of actions. The action could be for
+        modifying data within the model (adding, updating, removing), or the
+        action could be for collecting data for an external server in terms of
+        an API request.
+      </p>
+      <p>
+        When a redux action is a type that requires an API request, redux sends
+        that payload to redux-saga to help interact with the side-effect that
+        occurs when handling asynchronous code. Any function that is within
+        redux-saga follows the same basic layout: 1) set a base state within the
+        system model, this could be setting the loading state to true and
+        errorOccured state to false, 2) the API call itself, this includes
+        preparing the data to be sent, sending/receiving the data, and
+        formatting the returned data, 3) sending the received formatted data to
+        the model where it can then be used to update the view of the system.
+      </p>
+      <p>
+        The final section of the system is the model. Compared to the view and
+        controller, the model is a short section of the system. The only concern
+        of the model is to store the data given to it from the controller in an
+        orderly manner and retrieve the data when the view requests it. Within
+        our system, the model is divided into subsections: articles,
+        authentication, documents, errors, orders, and printing service prices.
+      </p>
     </div>
   </body>
   <style>
