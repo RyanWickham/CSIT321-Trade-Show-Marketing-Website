@@ -52,7 +52,435 @@
     </header>
 
     <!-- Main Content -->
-    <div class="container"></div>
+    <div class="container">
+      <h1>API Endpoints Design</h1>
+
+      <h2>Authentication Endpoints</h2>
+      <table>
+        <tr>
+          <th>Item Description</th>
+          <th>API Method</th>
+          <th>Description</th>
+          <th>Endpoint</th>
+          <th>Input</th>
+          <th>Output</th>
+          <th>Authentication</th>
+        </tr>
+
+        <tr>
+          <td style="max-width: 100px">Log-in to an admin user account</td>
+          <td style="max-width: 100px">POST</td>
+          <td style="max-width: 100px">Log in to an admin account</td>
+          <td style="max-width: 100px">/login/admin</td>
+          <td style="text-align: left">
+            { <br />
+            &emsp;Email: string,<br />
+            &emsp;Password: string <br />}
+          </td>
+          <td style="text-align: left">
+            { <br />&emsp;code: string,<br />
+            &emsp;message: string,<br />
+            &emsp;accessToken: accessToken, <br />&emsp;user: {<br />
+            &emsp;&emsp;givenName: string,<br />
+            &emsp;&emsp;familyName: string,<br />
+            &emsp;&emsp;email: string, <br />&emsp;} <br />}
+          </td>
+          <td style="max-width: 100px">Public</td>
+        </tr>
+      </table>
+
+      <h2>Main ITSA Site Endpoints</h2>
+      <table>
+        <tr>
+          <th>Item Description</th>
+          <th>API Method</th>
+          <th>Description</th>
+          <th>Endpoint</th>
+          <th>Input</th>
+          <th>Output</th>
+          <th>Authentication</th>
+        </tr>
+
+        <tr>
+          <td style="max-width: 100px">Get article/story previews for user</td>
+          <td style="max-width: 100px">POST</td>
+          <td style="max-width: 100px">
+            Get a list of articles to show to a user of the site. Only returns
+            articles that are set to public and remove admin-oriented details.
+          </td>
+          <td style="max-width: 100px">/article/list/home</td>
+          <td style="text-align: left">
+            { <br />&emsp;LastEvaluatedKey: int,<br />&emsp;Count: int <br />}
+          </td>
+          <td style="text-align: left">
+            { <br />&emsp;LastEvaluatedKey: int, <br />&emsp;Articles”: [ {
+            <br />&emsp;&emsp;ID: string, <br />&emsp;&emsp;CreationDate: int,
+            <br />&emsp;&emsp;Summary: string, <br />&emsp;&emsp;Title : string,
+            <br />&emsp;&emsp;BodyTruncated: string,
+            <br />&emsp;&emsp;ThumbnailURL: string <br />&emsp;}] <br />}
+          </td>
+          <td style="max-width: 100px">Public</td>
+        </tr>
+
+        <tr>
+          <td>Get article details</td>
+          <td>POST</td>
+          <td>Get the details of a specific article.</td>
+          <td>/article/details</td>
+          <td style="text-align: left">
+            { <br />&emsp;ID: string, <br />&emsp;CreationDate: int <br />}
+          </td>
+          <td style="text-align: left">
+            { <br />&emsp;ID: string, <br />&emsp;CreationDate: string,
+            <br />&emsp;Title: string, <br />&emsp;Body": string,
+            <br />&emsp;Summary: string, <br />&emsp;Author: string,
+            <br />&emsp;ThumbnailKey: string, <br />&emsp;ThumbnailUrl: string,
+            <br />&emsp;IsPublic: bool <br />}
+          </td>
+          <td>Public</td>
+        </tr>
+      </table>
+
+      <h2>Printing Service Site Endpoints</h2>
+      <table>
+        <tr>
+          <th>Item Description</th>
+          <th>API Method</th>
+          <th>Description</th>
+          <th>Endpoint</th>
+          <th>Input</th>
+          <th>Output</th>
+          <th>Authentication</th>
+        </tr>
+
+        <tr>
+          <td style="max-width: 100px">
+            Get pre-signed URL for document upload
+          </td>
+          <td style="max-width: 100px">POST</td>
+          <td style="max-width: 100px">
+            Get a one-time use URL allowing a document to be uploaded without
+            giving a user public access to the storage system.
+          </td>
+          <td style="max-width: 100px">/presigned/document/upload</td>
+          <td style="max-width: 100px">
+            null (File is uploaded and passed to S3)
+          </td>
+          <td style="text-align: left">
+            { <br />&emsp;URL: string, <br />&emsp;DocumentKey: string<br />
+            }
+          </td>
+          <td style="max-width: 100px">Public</td>
+        </tr>
+
+        <tr>
+          <td style="max-width: 100px">Submit an order</td>
+          <td style="max-width: 100px">POST</td>
+          <td style="max-width: 100px">
+            Takes in a JSON document containing card and document info,
+            processes payment and then places the order in the system.
+          </td>
+          <td style="max-width: 100px">/order/submit</td>
+          <td style="text-align: left">
+            { <br />&emsp;Name: string <br />&emsp;NameLowercase: string
+            <br />&emsp;Contact: { <br />&emsp;&emsp;Email: string
+            <br />&emsp;&emsp;PhoneNumber: int<br />
+            &emsp;},
+            <br />&emsp;DeliveryMethod: string <br />&emsp;Comment: string,
+            <br />&emsp;DocumentCount: string, <br />&emsp;Documents: {
+            <br />&emsp;&emsp;FileName: string, <br />&emsp;&emsp;ContentType:
+            string, <br />&emsp;&emsp;Size: string, <br />&emsp;&emsp;Price:
+            int, <br />&emsp;&emsp;AmountOfCopies: int,
+            <br />&emsp;&emsp;IsDoubleSided: boolean,
+            <br />&emsp;&emsp;ItemDetails: PricingItem, <br />&emsp;},
+            <br />&emsp;TotalPrice: string, <br />&emsp;Sheet: string<br />
+            }
+          </td>
+          <td style="text-align: left">
+            { <br />&emsp;OrderID: string,<br />&emsp;Sheet: string,
+            <br />&emsp;CreationDate: int<br />}
+          </td>
+          <td style="max-width: 100px">Public</td>
+        </tr>
+
+        <tr>
+          <td style="max-width: 100px">Get a pricing category</td>
+          <td style="max-width: 100px">POST</td>
+          <td style="max-width: 100px">
+            Get the pricing items for a page size.
+          </td>
+          <td style="max-width: 100px">/pricing/get</td>
+          <td style="text-align: left">
+            {<br />
+            &emsp;PageSize: string<br />
+            }
+          </td>
+          <td style="text-align: left">
+            { <br />&emsp;AllowDoubleSided: bool, <br />&emsp;PageSize: string,
+            <br />&emsp;Item { <br />&emsp;&emsp;ID: string,
+            <br />&emsp;&emsp;Label: string, <br />&emsp;&emsp;PaymentType:
+            string, <br />&emsp;&emsp;Options { <br />&emsp;&emsp;&emsp;Text:
+            string, <br />&emsp;&emsp;&emsp;PageAmountDependent: boolean,
+            <br />&emsp;&emsp;&emsp;Price: int or {<br />&emsp;&emsp;&emsp;&emsp;Min:
+            int,<br />&emsp;&emsp;&emsp;&emsp;Max: int,<br />&emsp;&emsp;&emsp;&emsp;Amount:
+            int<br />&emsp;&emsp;&emsp;} <br />&emsp;&emsp;} <br />&emsp;}
+            <br />}
+          </td>
+          <td style="max-width: 100px">Public</td>
+        </tr>
+      </table>
+
+      <h2>Admin Site Endpoints</h2>
+      <table>
+        <tr>
+          <th>Item Description</th>
+          <th>API Method</th>
+          <th>Description</th>
+          <th>Endpoint</th>
+          <th>Input</th>
+          <th>Output</th>
+          <th>Authentication</th>
+        </tr>
+
+        <tr>
+          <td style="max-width: 100px">
+            Add/Edit a new pricing category field
+          </td>
+          <td style="max-width: 100px">POST</td>
+          <td style="max-width: 100px">
+            Edit the pricing items for a page size.
+          </td>
+          <td style="max-width: 100px">/pricing/edit</td>
+          <td style="text-align: left">
+            { <br />&emsp;AllowDoubleSided: bool, <br />&emsp;PageSize: string,
+            <br />&emsp;Item { <br />&emsp;&emsp;ID: string,
+            <br />&emsp;&emsp;Label: string, <br />&emsp;&emsp;PaymentType:
+            string, <br />&emsp;&emsp;Options { <br />&emsp;&emsp;&emsp;Text:
+            string, <br />&emsp;&emsp;&emsp;PageAmountDependent: boolean,
+            <br />&emsp;&emsp;&emsp;Price: int or {<br />&emsp;&emsp;&emsp;&emsp;&emsp;Min:
+            int,<br />&emsp;&emsp;&emsp;&emsp;&emsp;Max: int,<br />&emsp;&emsp;&emsp;&emsp;&emsp;Amount:
+            int<br />&emsp;&emsp;&emsp;&emsp;}<br />&emsp;&emsp;}<br />&emsp;}<br />}
+          </td>
+          <td style="text-align: left">Null</td>
+          <td style="max-width: 100px">Private</td>
+        </tr>
+
+        <tr>
+          <td style="max-width: 100px">Upload Pricing</td>
+          <td style="max-width: 100px">POST</td>
+          <td style="max-width: 100px">
+            Get a new one-time use URL to upload the PDF of the pricing
+            information of the printing service
+          </td>
+          <td style="max-width: 100px">/presigned/pricing/upload</td>
+          <td style="text-align: left">
+            null (File is uploaded and passed to S3)
+          </td>
+          <td style="text-align: left">
+            { <br />&emsp;URL: string,<br />&emsp;PricingSheetKey: string<br />}
+          </td>
+          <td style="max-width: 100px">Private</td>
+        </tr>
+
+        <tr>
+          <td style="max-width: 100px">
+            Get presigned URL for document download
+          </td>
+          <td style="max-width: 100px">POST</td>
+          <td style="max-width: 100px">
+            Create a new one-time use URL to download a document.
+          </td>
+          <td style="max-width: 100px">/presigned/document/download</td>
+          <td style="text-align: left">
+            { <br />&emsp;DocumentKey: string<br />}
+          </td>
+          <td style="text-align: left">{ <br />&emsp;URL: string <br />}</td>
+          <td style="max-width: 100px">Private</td>
+        </tr>
+
+        <tr>
+          <td style="max-width: 100px">
+            Get presigned URL for thumbnail upload
+          </td>
+          <td style="max-width: 100px">POST</td>
+          <td style="max-width: 100px">
+            Create a new one-time use URL to upload or overwrite a thumbnail.
+          </td>
+          <td style="max-width: 100px">/presigned/thumbnail/upload</td>
+          <td style="text-align: left">
+            { <br />&emsp;Override: string <br />&emsp;(override for the key
+            else new key is generated) <br />}
+          </td>
+          <td style="text-align: left">
+            { <br />&emsp;URL: string,<br />&emsp;DocumentKey: string<br />}
+          </td>
+          <td style="max-width: 100px">Private</td>
+        </tr>
+
+        <tr>
+          <td style="max-width: 100px">Get order summary list</td>
+          <td style="max-width: 100px">POST</td>
+          <td style="max-width: 100px">
+            Get a list of orders summaries currently within the system. The
+            number of orders returned can be set.
+          </td>
+          <td style="max-width: 100px">/order/list</td>
+          <td style="text-align: left">
+            { <br />&emsp;LastEvaluatedKey: int,<br />&emsp;Count: int<br />}
+          </td>
+          <td style="text-align: left">
+            { <br />&emsp;ID: string,<br />&emsp;Name: string,<br />&emsp;DocumentCount:
+            int,<br />&emsp;DeliveryMethod: string,<br />&emsp;TotalPrice:
+            int,<br />&emsp;CreationDate: int<br />}
+          </td>
+          <td style="max-width: 100px">Private</td>
+        </tr>
+
+        <tr>
+          <td style="max-width: 100px">Get order details</td>
+          <td style="max-width: 100px">POST</td>
+          <td style="max-width: 100px">
+            Get details of a specific order summary retrieved through the
+            /order/list endpoint.
+          </td>
+          <td style="max-width: 100px">/order/details</td>
+          <td style="text-align: left">
+            { <br />&emsp;ID: string,<br />&emsp;CreationDate: int<br />}
+          </td>
+          <td style="text-align: left">
+            { <br />&emsp;ID: string,<br />&emsp;CreationDate: int,<br />&emsp;Name:
+            string,<br />&emsp;Contact: {<br />&emsp;&emsp;Email: string,<br />&emsp;&emsp;PhoneNumber:
+            int<br />&emsp;}, <br />&emsp;DeliveryMethod: string,<br />&emsp;Comment:
+            string,<br />&emsp;Documents: {<br />&emsp;&emsp;FileName: string,
+            <br />&emsp;&emsp;ContentType: string,<br />&emsp;&emsp;Size:
+            string,<br />&emsp;&emsp;Price: int,<br />&emsp;&emsp;AmountOfCopies:
+            int,<br />&emsp;&emsp;IsDoubleSided: boolean,
+            <br />&emsp;&emsp;ItemDetails: PricingItem<br />&emsp;},<br />&emsp;TotalPrice:
+            string<br />}
+          </td>
+          <td style="max-width: 100px">Private</td>
+        </tr>
+
+        <tr>
+          <td style="max-width: 100px">Change order status</td>
+          <td style="max-width: 100px">POST</td>
+          <td style="max-width: 100px">
+            Mark an in-progress order as complete, or recall a completed order
+            marking it as in-progress
+          </td>
+          <td style="max-width: 100px">/order/status</td>
+          <td style="text-align: left">
+            { <br />&emsp;ID: string,<br />&emsp;CreationDate: int <br />}
+          </td>
+          <td style="text-align: left">NULL</td>
+          <td style="max-width: 100px">Private</td>
+        </tr>
+
+        <tr>
+          <td style="max-width: 100px">Cancel order</td>
+          <td style="max-width: 100px">POST</td>
+          <td style="max-width: 100px">
+            Cancel an order, remove it from the system and refund the payment.
+          </td>
+          <td style="max-width: 100px">/order/cancel</td>
+          <td style="text-align: left">
+            { <br />&emsp;ID: string,<br />&emsp;CreationDate: int <br />}
+          </td>
+          <td style="text-align: left">NULL</td>
+          <td style="max-width: 100px">Private</td>
+        </tr>
+
+        <tr>
+          <td style="max-width: 100px">Get an order summary sheet</td>
+          <td style="max-width: 100px">POST</td>
+          <td style="max-width: 100px">Get the summary sheet for an order.</td>
+          <td style="max-width: 100px">/order/sheet</td>
+          <td style="text-align: left">NULL</td>
+          <td style="text-align: left">{<br />&emsp;HTML: string<br />}</td>
+          <td style="max-width: 100px">Private</td>
+        </tr>
+
+        <tr>
+          <td style="max-width: 100px">Get article/story previews for admin</td>
+          <td style="max-width: 100px">POST</td>
+          <td style="max-width: 100px">
+            Get a list of articles to show to an admin to be edited or removed.
+          </td>
+          <td style="max-width: 100px">/article/list/admin</td>
+          <td style="text-align: left">
+            {<br />&emsp;LastEvaluatedKey: int,<br />&emsp;Count: int<br />}
+          </td>
+          <td style="text-align: left">
+            {<br />&emsp;ID: string,<br />&emsp;Title: string,<br />&emsp;Summary:
+            string,<br />&emsp;BodyTruncated: string, <br />&emsp;CreationDate:
+            int,<br />&emsp;Author: string,<br />&emsp;IsPublic: bool<br />}
+          </td>
+          <td style="max-width: 100px">Private</td>
+        </tr>
+
+        <tr>
+          <td style="max-width: 100px">Create article</td>
+          <td style="max-width: 100px">POST</td>
+          <td style="max-width: 100px">Create a new article on the site.</td>
+          <td style="max-width: 100px">/article/create</td>
+          <td style="text-align: left">
+            {<br />&emsp;Title: string,<br />&emsp;Body: string,<br />&emsp;Summary:
+            string,<br />&emsp;Author: [ Author: string ],<br />&emsp;Thumbnail:
+            string (url)<br />}
+          </td>
+          <td style="text-align: left">Null</td>
+          <td style="max-width: 100px">Private</td>
+        </tr>
+
+        <tr>
+          <td style="max-width: 100px">Update article</td>
+          <td style="max-width: 100px">POST</td>
+          <td style="max-width: 100px">
+            Update an existing article on the website.
+          </td>
+          <td style="max-width: 100px">/article/update</td>
+          <td style="text-align: left">
+            {<br />&emsp;ID: string,<br />&emsp;CreationDate:int,<br />&emsp;Title:
+            string,<br />&emsp;Body: string,<br />&emsp;Summary: string,
+            <br />&emsp;BodyTruncated: string,<br />&emsp;Author: [ Author:
+            string ],<br />&emsp;Thumbnail: string <br />&emsp;IsPublic: bool<br />}
+          </td>
+          <td style="text-align: left">NULL</td>
+          <td style="max-width: 100px">Private</td>
+        </tr>
+
+        <tr>
+          <td style="max-width: 100px">Remove an article</td>
+          <td style="max-width: 100px">POST</td>
+          <td style="max-width: 100px">Remove an article from the system.</td>
+          <td style="max-width: 100px">/article/remove</td>
+          <td style="text-align: left">
+            {<br />&emsp;ID: string,<br />&emsp;CreationDate: int<br />}
+          </td>
+          <td style="text-align: left">NULL</td>
+          <td style="max-width: 100px">Private</td>
+        </tr>
+
+        <tr>
+          <td style="max-width: 100px">Search for an order</td>
+          <td style="max-width: 100px">POST</td>
+          <td style="max-width: 100px">
+            Search for an order with a given name.
+          </td>
+          <td style="max-width: 100px">/order/search</td>
+          <td style="text-align: left">
+            {<br />&emsp;Name : string,<br />&emsp;Count: int,<br />&emsp;LastEvaluatedKey:
+            int<br />}
+          </td>
+          <td style="text-align: left">
+            {<br />&emsp;ID: string,<br />&emsp;Name: string,<br />&emsp;DocumentCount:
+            int,<br />&emsp;DeliveryMethod: string,<br />&emsp;TotalPrice:
+            int,<br />&emsp;CreationDate: int<br />}
+          </td>
+          <td style="max-width: 100px">Private</td>
+        </tr>
+      </table>
+    </div>
   </body>
   <style>
     body {
@@ -82,6 +510,25 @@
     .container p {
       font-size: 1.2rem;
       margin-bottom: 0.5rem;
+    }
+
+    table,
+    th,
+    td {
+      text-align: center;
+    }
+
+    table {
+      border: 1px solid black;
+      min-width: 100%;
+    }
+
+    td {
+      overflow-wrap: break-word;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
     }
   </style>
 </html>
